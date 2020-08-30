@@ -1,0 +1,22 @@
+all about git that i know
+
+to begin, once for all
+git init
+
+especially on new terminal, it's differ a bit than u're using in vs code
+git config --global
+
+used to make a new branch and switch to that new branch
+git branch -b
+git remote -v //for see which branch are you on
+
+intialization then holy trinity of git
+git clone (url)
+//then open the folder do some coding
+git add .
+git commit -m "comment"
+git push origin master
+//do upload at origin(url) and master(branch)
+
+//if you already have the folder you can do this instead
+git remote add origin (url)

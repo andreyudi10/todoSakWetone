@@ -61,3 +61,7 @@ export default Todo
 
 // bikin fungsi di apps,passing props, panggil passing props, 
 // pilih mo pake arow ato tembak langsung
+// ubah
+
+// klo passing value di returnnya pake arrow
+// klo cuma onChange ama onClick mah langsung gas aya wae awkakwkawka

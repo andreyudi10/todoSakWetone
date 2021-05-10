@@ -45,7 +45,7 @@ const App = () => {
             setTodos(newTodos)
             // return newTodos
         }else{
-            const baruTodo = [...todos]
+            const editedTodo = [...todos]
             // const removedIsEditFalse = todos.filter(todo=>todo.isEdit==false)
             // const newTodos = [
             //     ...removedIsEditFalse,  { 
@@ -56,9 +56,9 @@ const App = () => {
             //                 isEdit:false,
             //                 }
             // ]
-            baruTodo[index].text = text
-            baruTodo[index].isEdit=false
-            setTodos(baruTodo)
+            editedTodo[index].text = text
+            editedTodo[index].isEdit=false
+            setTodos(editedTodo)
             // return newTodos
         }
     }

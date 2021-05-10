@@ -1,20 +1,36 @@
-import React from 'react'
+import React,{ useState } from 'react'
 
-const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice}) => {
+const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo}) => {
     const testTombol = ()  =>{
         console.log('test tombol nyala')
     }
+    const [valueInputEdit,setValueInputEdit] = useState("")
+
+    const handleChangeEdit = (e,index) =>{
+        // const newTodos = [...todos]
+        // newTodos[index].text = e.target.value
+        setValueInputEdit(e.target.value)
+    }
+
+    const handleSubmitEdit = (e) =>{
+        e.preventDefault();        
+        if(valueInputEdit!==""){
+            addTodo(valueInputEdit,true,index)
+        }
+    }
+
+    
 
     // another testTombol menggunakan cara lain
     return (
-        <div 
+        <form 
             className="todo"
             style={{textDecoration:todo.isCompleted?"line-through":"none"}}
+            onSubmit={handleSubmitEdit}
             
-        >   
+        >   {todo.isEdit?<input onChange={handleChangeEdit}></input>:<>
             <div className="stylingteks">
                 {todo.text}            
-
             </div>
             <div>
                 <button onClick={()=>completeTodo(index)}>completed</button>
@@ -25,8 +41,11 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice}) =>
                 {/* ini kaga jalan */}
                 <button onClick={()=>removeTodo(identity)}>remove</button>
                 <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
+                <button onClick={()=>editTodo(index)}>edit kang</button>
             </div>
-        </div>
+        </>}
+        
+        </form>
     )
 }
 

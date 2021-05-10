@@ -29,6 +29,8 @@ const App = () => {
         // experinment apakah masih jalan klo masih ada koma        
     ])
 
+    const [option,setOption]=useState('All')
+
     const addTodo = (text,isEdit,index,fakin) =>{
         // const newTodos = []
         if(isEdit==false){
@@ -95,9 +97,23 @@ const App = () => {
         console.log(newTodos)
         setTodos(newTodos)
     }
+
+    const handleChangeOption = (e) =>{
+        console.log(e.target.value)
+    }
+    
+
+    const optionBody = (
+        <select onChange={handleChangeOption}>
+            <option>All</option>
+            <option>isComplete</option>
+            <option>isNotComplete</option>
+        </select>
+    )
     return (
         <div className="App">
             <div className="todo-list">
+                {optionBody}
                 {todos
                 .filter((todo)=>todo.isRemoved===false)
                 .map((todo, index)=>(

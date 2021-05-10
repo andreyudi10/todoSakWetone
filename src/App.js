@@ -29,7 +29,7 @@ const App = () => {
         // experinment apakah masih jalan klo masih ada koma        
     ])
 
-    const addTodo = (text,identity,isEdit,index) =>{
+    const addTodo = (text,isEdit,index,fakin) =>{
         // const newTodos = []
         if(isEdit==false){
             const newTodos = [
@@ -90,7 +90,9 @@ const App = () => {
 
     const removeTodoSplice = (index) =>{
         const newTodos = [...todos];
+        console.log(newTodos)
         newTodos.splice(index,1)
+        console.log(newTodos)
         setTodos(newTodos)
     }
     return (

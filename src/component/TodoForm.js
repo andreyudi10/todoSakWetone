@@ -6,7 +6,7 @@ const TodoForm = ({addTodo}) => {
         e.preventDefault();
         console.log(valueInput)
         if(valueInput!==""){
-            addTodo(valueInput,"askldfns",false)
+            addTodo(valueInput,false)
         }
         //only do add function if value is not null string
         setValueInput("")

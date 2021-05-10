@@ -15,7 +15,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
     const handleSubmitEdit = (e) =>{
         e.preventDefault();        
         if(valueInputEdit!==""){
-            addTodo(valueInputEdit,index,true,index)
+            addTodo(valueInputEdit,true,index)
         }
     }
 

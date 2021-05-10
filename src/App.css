@@ -1,0 +1,27 @@
+.app{
+    background: #209cee;
+    height: 100vh;
+    padding:30px;
+}
+
+.todo-list{
+    background: #e83838;
+    border-radius: 4px;
+    max-width: 1000px;
+    padding: 5px;    
+}
+
+.todo{
+    align-items: center;
+    display: flex;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 12px;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 3px 10px;
+}
+
+.stylingteks{
+    margin: 20px;
+}

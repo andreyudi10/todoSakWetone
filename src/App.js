@@ -28,6 +28,8 @@ const App = () => {
         },                
         // experinment apakah masih jalan klo masih ada koma        
     ])
+    const [ mappedTodos, setMappedTodos] = useState(todos)
+    const [ option, setOption ] = useState("All")
     useEffect(()=>{
         const getTodosFromLocal = JSON.parse(localStorage.getItem("todos"))
         if(getTodosFromLocal){
@@ -35,7 +37,22 @@ const App = () => {
         }
     },[])
 
-    const [option,setOption]=useState('All')
+    useEffect(() => {        
+        console.log('useEffect kedua',option)
+        if(option=="isNotComplete"){
+            const filteredTodos = todos.filter((val)=> val.isCompleted == false)
+            console.log('not completed',filteredTodos)
+            setMappedTodos(filteredTodos)
+        }else if(option=="isComplete"){
+            const filteredTodos = todos.filter((val)=> val.isCompleted == true)
+            console.log('completed',filteredTodos)
+            setMappedTodos(filteredTodos)
+        }else(
+            setMappedTodos(todos)
+        )
+        
+    }, [todos,option])
+
 
     const addTodo = (text,isEdit,index,fakin) =>{
         // const newTodos = []
@@ -51,25 +68,13 @@ const App = () => {
                     ]
 
             setTodos(newTodos)
-            localStorage.setItem("todos",JSON.stringify(newTodos))
-            // return newTodos
+            localStorage.setItem("todos",JSON.stringify(newTodos))            
         }else{
-            const editedTodo = [...todos]
-            // const removedIsEditFalse = todos.filter(todo=>todo.isEdit==false)
-            // const newTodos = [
-            //     ...removedIsEditFalse,  { 
-            //                 identity:identity,
-            //                 text :text,
-            //                 isCompleted:false,
-            //                 isRemoved:false,
-            //                 isEdit:false,
-            //                 }
-            // ]
+            const editedTodo = [...todos]            
             editedTodo[index].text = text
             editedTodo[index].isEdit=false
             setTodos(editedTodo)
-            localStorage.setItem("todos",JSON.stringify(editedTodo))
-            // return newTodos
+            localStorage.setItem("todos",JSON.stringify(editedTodo))            
         }
     }
 
@@ -107,6 +112,7 @@ const App = () => {
 
     const handleChangeOption = (e) =>{
         console.log(e.target.value)
+        setOption(e.target.value)
     }
     
 
@@ -121,7 +127,7 @@ const App = () => {
         <div className="App">
             <div className="todo-list">
                 {optionBody}
-                {todos
+                {mappedTodos
                 .filter((todo)=>todo.isRemoved===false)
                 .map((todo, index)=>(
                     <Todo 

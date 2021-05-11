@@ -1,7 +1,7 @@
 import React,{ useState } from 'react'
 import styles from './Todo.module.css'
 
-const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo,isFavorite,handleChangeFavorite}) => {
+const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo,isFavorite,changeFavorite}) => {
     const testTombol = ()  =>{
         console.log('test tombol nyala')
     }
@@ -46,7 +46,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
                 <div>
                     <button onClick={()=>completeTodo(index)}>completed</button>
                     {/* jika butuh fungsi selain e gunakan arrow */}
-                    <button onClick={()=>handleChangeFavorite(index)}>toggle Fav</button>
+                    <button onClick={()=>changeFavorite(index)}>toggle Fav</button>
                     {/* ini jalan */}
                     <button onClick={()=>testTombol}>test tombol</button>
                     {/* ini kaga jalan */}

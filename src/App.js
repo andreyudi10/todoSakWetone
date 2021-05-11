@@ -79,7 +79,7 @@ const App = () => {
     }
 
     const completeTodo = (id) =>{        
-        // ada 2 cara, next time klo mo pake id pakenya yang map
+        // ada 2 cara, next time klo mo pake identity pakenya yang map
         // tapi klo udah ada index bisa pake cara langsung
 
         // cara 1
@@ -141,7 +141,7 @@ const App = () => {
         setOption(e.target.value)
     }
 
-    const handleChangeFavorite = (id) =>{
+    const changeFavorite = (id) =>{
         const newTodos = [...todos]        
         newTodos[id].isFavorite = !todos[id].isFavorite        
         setTodos(newTodos)
@@ -172,7 +172,7 @@ const App = () => {
                         editTodo={editTodo}                
                         addTodo={addTodo}        
                         isFavorite={todo.isFavorite}
-                        handleChangeFavorite={handleChangeFavorite}
+                        changeFavorite={changeFavorite}
                         // yang di passing ambil todo pake spread array
                     />
                 ))}

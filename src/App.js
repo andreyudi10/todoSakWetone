@@ -53,7 +53,7 @@ const App = () => {
     }, [todos,option])
 
 
-    const addTodo = (text,isEdit,index,fakin) =>{
+    const addTodo = (text,isEdit,index,identity) =>{
         // const newTodos = []
         if(isEdit==false){
             const newTodos = [
@@ -128,16 +128,34 @@ const App = () => {
             isFavorite:todo.isFavorite,
         })
         const changeUsingMapTodos = todos.map((todo,idx)=>idx==id ? changedTodos(todo) : sameTodos(todo))
-        // ampe sini
-            
-            
+        // ampe sini                            
         setTodos(changeUsingMapTodos)
     }
 
-    const editTodo = (id) => {
-        const newTodos = [...todos]
-        newTodos[id].isEdit = !todos[id].isEdit
-        setTodos(newTodos)
+    const editTodo = (idt) => {
+        // const newTodos = [...todos]
+        // newTodos[id].isEdit = !todos[id].isEdit
+        // setTodos(newTodos)
+        const changedTodos = (todo) =>({
+            identity:todo.identity,
+            text :todo.text,
+            isCompleted:todo.isCompleted,
+            isRemoved:todo.isRemoved,
+            isEdit:!todo.isEdit,
+            isFavorite:todo.isFavorite,
+        })
+
+        const sameTodos = (todo) =>({
+            identity:todo.identity,
+            text :todo.text,
+            isCompleted:todo.isCompleted,
+            isRemoved:todo.isRemoved,
+            isEdit:todo.isEdit,
+            isFavorite:todo.isFavorite,
+        })
+        const changeUsingMapTodos = todos.map((todo,idx)=>todo.identity==idt ? changedTodos(todo) : sameTodos(todo))
+        // ampe sini
+        setTodos(changeUsingMapTodos)        
     }
 
     const removeTodo = (identity) =>{

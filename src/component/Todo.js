@@ -8,13 +8,14 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
     const [valueInputEdit,setValueInputEdit] = useState("")
 
     const handleChangeEdit = (e,index) =>{        
+        console.log(e.target.value)
         setValueInputEdit(e.target.value)
     }
 
     const handleSubmitEdit = (e) =>{
         e.preventDefault();        
         if(valueInputEdit!==""){
-            addTodo(valueInputEdit,true,index)
+            addTodo(valueInputEdit,true,index,identity)
         }
     }
 
@@ -52,7 +53,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
                     {/* ini kaga jalan */}
                     <button onClick={()=>removeTodo(identity)}>remove</button>
                     <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
-                    <button onClick={()=>editTodo(index)}>edit kang</button>                
+                    <button onClick={()=>editTodo(identity)}>edit kang</button>                
                     <div className={favoriteConditional}></div>
                 </div>
             </>}

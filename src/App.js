@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState,useEffect} from 'react'
 import Todo from './component/Todo'
 import TodoForm from './component/TodoForm'
 import './App.css'
@@ -28,6 +28,12 @@ const App = () => {
         },                
         // experinment apakah masih jalan klo masih ada koma        
     ])
+    useEffect(()=>{
+        const getTodosFromLocal = JSON.parse(localStorage.getItem("todos"))
+        if(getTodosFromLocal){
+            setTodos(getTodosFromLocal)
+        }
+    },[])
 
     const addTodo = (text,isEdit,index,fakin) =>{
         // const newTodos = []
@@ -43,6 +49,7 @@ const App = () => {
                     ]
 
             setTodos(newTodos)
+            localStorage.setItem("todos",JSON.stringify(newTodos))
             // return newTodos
         }else{
             const editedTodo = [...todos]
@@ -59,6 +66,7 @@ const App = () => {
             editedTodo[index].text = text
             editedTodo[index].isEdit=false
             setTodos(editedTodo)
+            localStorage.setItem(JSON.stringify('todos',editedTodo))
             // return newTodos
         }
     }

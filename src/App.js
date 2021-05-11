@@ -79,37 +79,58 @@ const App = () => {
     }
 
     const completeTodo = (id) =>{        
-        // ada 2 cara, next time klo mo pake identity pakenya yang map
-        // tapi klo udah ada index bisa pake cara langsung
+        // ada 3 cara, next time klo mo pake identity pakenya yang map (cara 2 dan 3)
+        // tapi klo udah ada index bisa pake cara langsung cara 1
 
         // cara 1
         // const newTodos = [...todos]
         // newTodos[id].isCompleted = !todos[id].isCompleted
         // setTodos(newTodos)        
-        // ampe sini
+        // ampe sini terus tulis setnya
 
         // cara 2
-        const changeUsingMapTodos = todos
-                                    .map((todo,idx)=>idx==id?
-                                    {
-                                        identity:todo.identity,
-                                        text :todo.text,
-                                        isCompleted:!todo.isCompleted,
-                                        isRemoved:todo.isRemoved,
-                                        isEdit:todo.isEdit,
-                                        isFavorite:todo.isFavorite,            
-                                    }:
-                                    {
-                                        identity:todo.identity,
-                                        text :todo.text,
-                                        isCompleted:todo.isCompleted,
-                                        isRemoved:todo.isRemoved,
-                                        isEdit:todo.isEdit, 
-                                        isFavorite:todo.isFavorite,            
-                                    })
+        // const changeUsingMapTodos = todos
+        //                             .map((todo,idx)=>idx==id?
+        //                             {
+        //                                 identity:todo.identity,
+        //                                 text :todo.text,
+        //                                 isCompleted:!todo.isCompleted,
+        //                                 isRemoved:todo.isRemoved,
+        //                                 isEdit:todo.isEdit,
+        //                                 isFavorite:todo.isFavorite,            
+        //                             }:
+        //                             {
+        //                                 identity:todo.identity,
+        //                                 text :todo.text,
+        //                                 isCompleted:todo.isCompleted,
+        //                                 isRemoved:todo.isRemoved,
+        //                                 isEdit:todo.isEdit, 
+        //                                 isFavorite:todo.isFavorite,            
+        //                             })
+        // ampe sini terus tulis setnya
+        
+        // cara ke 3
+        const changedTodos = (todo) =>({
+            identity:todo.identity,
+            text :todo.text,
+            isCompleted:!todo.isCompleted,
+            isRemoved:todo.isRemoved,
+            isEdit:todo.isEdit,
+            isFavorite:todo.isFavorite,
+        })
+
+        const sameTodos = (todo) =>({
+            identity:todo.identity,
+            text :todo.text,
+            isCompleted:todo.isCompleted,
+            isRemoved:todo.isRemoved,
+            isEdit:todo.isEdit,
+            isFavorite:todo.isFavorite,
+        })
+        const changeUsingMapTodos = todos.map((todo,idx)=>idx==id ? changedTodos(todo) : sameTodos(todo))
         // ampe sini
-        
-        
+            
+            
         setTodos(changeUsingMapTodos)
     }
 

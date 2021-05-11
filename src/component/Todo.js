@@ -1,14 +1,13 @@
 import React,{ useState } from 'react'
+import styles from './Todo.module.css'
 
-const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo}) => {
+const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo,isFavorite,handleChangeFavorite}) => {
     const testTombol = ()  =>{
         console.log('test tombol nyala')
     }
     const [valueInputEdit,setValueInputEdit] = useState("")
 
-    const handleChangeEdit = (e,index) =>{
-        // const newTodos = [...todos]
-        // newTodos[index].text = e.target.value
+    const handleChangeEdit = (e,index) =>{        
         setValueInputEdit(e.target.value)
     }
 
@@ -19,37 +18,51 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
         }
     }
 
+    // using className
+    const favoriteConditional = (
+        isFavorite ? `${styles.circle} ${styles.active}` : `${styles.circle}`
+    )
+
+    // using styles
+    const completeConditional = (
+        {textDecoration:todo.isCompleted ? "line-through" : "none"}
+    )
+
     
 
     // another testTombol menggunakan cara lain
     return (
         <form 
             className="todo"
-            style={{textDecoration:todo.isCompleted?"line-through":"none"}}
+            style={completeConditional}
             onSubmit={handleSubmitEdit}
             
-        >   {todo.isEdit?<input onChange={handleChangeEdit}></input>:<>
-            <div className="stylingteks">
-                {todo.text}            
-            </div>
-            <div>
-                <button onClick={()=>completeTodo(index)}>completed</button>
-                {/* jika butuh fungsi selain e gunakan arrow */}
-                <button onClick={testTombol}>test tombol</button>
-                {/* ini jalan */}
-                <button onClick={()=>testTombol}>test tombol</button>
-                {/* ini kaga jalan */}
-                <button onClick={()=>removeTodo(identity)}>remove</button>
-                <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
-                <button onClick={()=>editTodo(index)}>edit kang</button>
-            </div>
-        </>}
+        >   {todo.isEdit?
+            <input onChange={handleChangeEdit}></input>:
+            <>
+                <div className="stylingteks">
+                    {todo.text}            
+                </div>
+                <div>
+                    <button onClick={()=>completeTodo(index)}>completed</button>
+                    {/* jika butuh fungsi selain e gunakan arrow */}
+                    <button onClick={()=>handleChangeFavorite(index)}>toggle Fav</button>
+                    {/* ini jalan */}
+                    <button onClick={()=>testTombol}>test tombol</button>
+                    {/* ini kaga jalan */}
+                    <button onClick={()=>removeTodo(identity)}>remove</button>
+                    <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
+                    <button onClick={()=>editTodo(index)}>edit kang</button>                
+                    <div className={favoriteConditional}></div>
+                </div>
+            </>}
         
         </form>
     )
 }
 
 export default Todo
+
 
 // kesimpulan, klo cuma jalanin fungsi semacam biar fungsi lain jalan atau setState bisa
 // pake tulis langsung {testTombol}

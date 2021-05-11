@@ -17,6 +17,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
         if(valueInputEdit!==""){
             addTodo(valueInputEdit,true,index,identity)
         }
+        setValueInputEdit("")
     }
 
     // using className
@@ -45,9 +46,9 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
                     {todo.text}            
                 </div>
                 <div>
-                    <button onClick={()=>completeTodo(index)}>completed</button>
+                    <button onClick={()=>completeTodo(identity)}>completed</button>
                     {/* jika butuh fungsi selain e gunakan arrow */}
-                    <button onClick={()=>changeFavorite(index)}>toggle Fav</button>
+                    <button onClick={()=>changeFavorite(identity)}>toggle Fav</button>
                     {/* ini jalan */}
                     <button onClick={()=>testTombol}>test tombol</button>
                     {/* ini kaga jalan */}

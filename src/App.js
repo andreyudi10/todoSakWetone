@@ -70,15 +70,27 @@ const App = () => {
             setTodos(newTodos)
             localStorage.setItem("todos",JSON.stringify(newTodos))            
         }else{
-            const editedTodo = [...todos]            
-            editedTodo[index].text = text
-            editedTodo[index].isEdit = false
-            setTodos(editedTodo)
-            localStorage.setItem("todos",JSON.stringify(editedTodo))            
+            // old method using array
+            // const editedTodo = [...todos]            
+            // editedTodo[index].text = text
+            // editedTodo[index].isEdit = false
+
+            // new method using found index
+            const changedTodos = (todo) =>({
+                identity:todo.identity,
+                text :text,
+                isCompleted:todo.isCompleted,
+                isRemoved:todo.isRemoved,
+                isEdit:!todo.isEdit,
+                isFavorite:todo.isFavorite,
+            })                
+            const changeUsingMapTodos = todos.map((todo,idx)=>todo.identity==identity ? changedTodos(todo) : todo)            
+            setTodos(changeUsingMapTodos)                   
+            localStorage.setItem("todos",JSON.stringify(changeUsingMapTodos))            
         }
     }
 
-    const completeTodo = (id) =>{        
+    const completeTodo = (idt) =>{        
         // ada 3 cara, next time klo mo pake identity pakenya yang map (cara 2 dan 3)
         // tapi klo udah ada index bisa pake cara langsung cara 1
 
@@ -117,25 +129,19 @@ const App = () => {
             isRemoved:todo.isRemoved,
             isEdit:todo.isEdit,
             isFavorite:todo.isFavorite,
-        })
-
-        const sameTodos = (todo) =>({
-            identity:todo.identity,
-            text :todo.text,
-            isCompleted:todo.isCompleted,
-            isRemoved:todo.isRemoved,
-            isEdit:todo.isEdit,
-            isFavorite:todo.isFavorite,
-        })
-        const changeUsingMapTodos = todos.map((todo,idx)=>idx==id ? changedTodos(todo) : sameTodos(todo))
+        })        
+        const changeUsingMapTodos = todos.map((todo)=>idt==todo.identity ? changedTodos(todo) : todo)
         // ampe sini                            
         setTodos(changeUsingMapTodos)
     }
 
     const editTodo = (idt) => {
+        // old method
         // const newTodos = [...todos]
         // newTodos[id].isEdit = !todos[id].isEdit
-        // setTodos(newTodos)
+        // setTodos(newTodos)        
+
+        // new method
         const changedTodos = (todo) =>({
             identity:todo.identity,
             text :todo.text,
@@ -143,17 +149,8 @@ const App = () => {
             isRemoved:todo.isRemoved,
             isEdit:!todo.isEdit,
             isFavorite:todo.isFavorite,
-        })
-
-        const sameTodos = (todo) =>({
-            identity:todo.identity,
-            text :todo.text,
-            isCompleted:todo.isCompleted,
-            isRemoved:todo.isRemoved,
-            isEdit:todo.isEdit,
-            isFavorite:todo.isFavorite,
-        })
-        const changeUsingMapTodos = todos.map((todo,idx)=>todo.identity==idt ? changedTodos(todo) : sameTodos(todo))
+        })        
+        const changeUsingMapTodos = todos.map((todo,idx)=>todo.identity==idt ? changedTodos(todo) : todo)
         // ampe sini
         setTodos(changeUsingMapTodos)        
     }
@@ -180,9 +177,20 @@ const App = () => {
         setOption(e.target.value)
     }
 
-    const changeFavorite = (id) =>{
-        const newTodos = [...todos]        
-        newTodos[id].isFavorite = !todos[id].isFavorite        
+    const changeFavorite = (idt) =>{
+        // const newTodos = [...todos]        
+        // newTodos[id].isFavorite = !todos[id].isFavorite        
+        // setTodos(newTodos)
+
+        const changedTodos = ( todo ) =>({
+            identity:todo.identity,
+            text :todo.text,
+            isCompleted:todo.isCompleted,
+            isRemoved:todo.isRemoved,
+            isEdit:todo.isEdit,
+            isFavorite:!todo.isFavorite,            
+        })
+        const newTodos = todos.map(todo=>idt==todo.identity ? changedTodos(todo) : todo)
         setTodos(newTodos)
     }
     

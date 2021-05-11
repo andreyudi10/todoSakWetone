@@ -40,20 +40,16 @@ const App = () => {
         }
     },[])
 
-    useEffect(() => {        
-        console.log('useEffect kedua',option)
+    useEffect(() => {                
         if(option=="isNotComplete"){
             const filteredTodos = todos.filter((val)=> val.isCompleted == false)
-            console.log('not completed',filteredTodos)
             setMappedTodos(filteredTodos)
         }else if(option=="isComplete"){
-            const filteredTodos = todos.filter((val)=> val.isCompleted == true)
-            console.log('completed',filteredTodos)
+            const filteredTodos = todos.filter((val)=> val.isCompleted == true)            
             setMappedTodos(filteredTodos)
         }else(
             setMappedTodos(todos)
-        )
-        
+        )        
     }, [todos,option])
 
 
@@ -76,18 +72,45 @@ const App = () => {
         }else{
             const editedTodo = [...todos]            
             editedTodo[index].text = text
-            editedTodo[index].isEdit=false
+            editedTodo[index].isEdit = false
             setTodos(editedTodo)
             localStorage.setItem("todos",JSON.stringify(editedTodo))            
         }
     }
 
+    const completeTodo = (id) =>{        
+        // ada 2 cara, next time klo mo pake id pakenya yang map
+        // tapi klo udah ada index bisa pake cara langsung
 
-    const completeTodo = (id) =>{
-        console.log(...todos)
-        const newTodos = [...todos]
-        newTodos[id].isCompleted = !todos[id].isCompleted
-        setTodos(newTodos)        
+        // cara 1
+        // const newTodos = [...todos]
+        // newTodos[id].isCompleted = !todos[id].isCompleted
+        // setTodos(newTodos)        
+        // ampe sini
+
+        // cara 2
+        const changeUsingMapTodos = todos
+                                    .map((todo,idx)=>idx==id?
+                                    {
+                                        identity:todo.identity,
+                                        text :todo.text,
+                                        isCompleted:!todo.isCompleted,
+                                        isRemoved:todo.isRemoved,
+                                        isEdit:todo.isEdit,
+                                        isFavorite:todo.isFavorite,            
+                                    }:
+                                    {
+                                        identity:todo.identity,
+                                        text :todo.text,
+                                        isCompleted:todo.isCompleted,
+                                        isRemoved:todo.isRemoved,
+                                        isEdit:todo.isEdit, 
+                                        isFavorite:todo.isFavorite,            
+                                    })
+        // ampe sini
+        
+        
+        setTodos(changeUsingMapTodos)
     }
 
     const editTodo = (id) => {
@@ -97,13 +120,13 @@ const App = () => {
     }
 
     const removeTodo = (identity) =>{
-        const findIdentity = todos.find((todo)=>todo.identity==identity)
-        findIdentity.isRemoved=true        
-        setTodos([
-            ...todos,findIdentity
-        ])                
-        // akwakkwakwkawkakwakwkakwkakwkaw selalu pake set todo
-        // tapi tak direkomendasikan karena merusak workflow
+        const newTodos = [...todos]
+        const filterBasedIdentity = newTodos.filter((todo)=>todo.identity!==identity)        
+
+        // const newThing = newTodos.map((todo)=> todo.identity===identity ? todo : todo )
+        setTodos(filterBasedIdentity)                
+        // udah bisa sekarang
+        localStorage.setItem("todos",JSON.stringify(filterBasedIdentity))
     }
  
 
@@ -114,16 +137,13 @@ const App = () => {
         localStorage.setItem("todos",JSON.stringify(newTodos))
     }
 
-    const handleChangeOption = (e) =>{
-        console.log(e.target.value)
+    const handleChangeOption = (e) =>{        
         setOption(e.target.value)
     }
 
     const handleChangeFavorite = (id) =>{
-        const newTodos = [...todos]
-        console.log(newTodos[id].isFavorite)
-        newTodos[id].isFavorite = !todos[id].isFavorite
-        console.log(newTodos[id].isFavorite)
+        const newTodos = [...todos]        
+        newTodos[id].isFavorite = !todos[id].isFavorite        
         setTodos(newTodos)
     }
     
@@ -139,8 +159,7 @@ const App = () => {
         <div className="App">
             <div className="todo-list">
                 {optionBody}
-                {mappedTodos
-                .filter((todo)=>todo.isRemoved===false)
+                {mappedTodos                
                 .map((todo, index)=>(
                     <Todo 
                         key={index}

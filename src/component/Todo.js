@@ -7,9 +7,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
     }
     const [valueInputEdit,setValueInputEdit] = useState("")
 
-    const handleChangeEdit = (e,index) =>{
-        // const newTodos = [...todos]
-        // newTodos[index].text = e.target.value
+    const handleChangeEdit = (e,index) =>{        
         setValueInputEdit(e.target.value)
     }
 
@@ -20,8 +18,14 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
         }
     }
 
+    // using className
     const favoriteConditional = (
-        isFavorite?`${styles.circle} ${styles.active}`:`${styles.circle}`
+        isFavorite ? `${styles.circle} ${styles.active}` : `${styles.circle}`
+    )
+
+    // using styles
+    const completeConditional = (
+        {textDecoration:todo.isCompleted ? "line-through" : "none"}
     )
 
     
@@ -30,26 +34,28 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
     return (
         <form 
             className="todo"
-            style={{textDecoration:todo.isCompleted?"line-through":"none"}}
+            style={completeConditional}
             onSubmit={handleSubmitEdit}
             
-        >   {todo.isEdit?<input onChange={handleChangeEdit}></input>:<>
-            <div className="stylingteks">
-                {todo.text}            
-            </div>
-            <div>
-                <button onClick={()=>completeTodo(index)}>completed</button>
-                {/* jika butuh fungsi selain e gunakan arrow */}
-                <button onClick={()=>handleChangeFavorite(index)}>toggle Fav</button>
-                {/* ini jalan */}
-                <button onClick={()=>testTombol}>test tombol</button>
-                {/* ini kaga jalan */}
-                <button onClick={()=>removeTodo(identity)}>remove</button>
-                <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
-                <button onClick={()=>editTodo(index)}>edit kang</button>                
-                <div className={favoriteConditional}></div>
-            </div>
-        </>}
+        >   {todo.isEdit?
+            <input onChange={handleChangeEdit}></input>:
+            <>
+                <div className="stylingteks">
+                    {todo.text}            
+                </div>
+                <div>
+                    <button onClick={()=>completeTodo(index)}>completed</button>
+                    {/* jika butuh fungsi selain e gunakan arrow */}
+                    <button onClick={()=>handleChangeFavorite(index)}>toggle Fav</button>
+                    {/* ini jalan */}
+                    <button onClick={()=>testTombol}>test tombol</button>
+                    {/* ini kaga jalan */}
+                    <button onClick={()=>removeTodo(identity)}>remove</button>
+                    <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
+                    <button onClick={()=>editTodo(index)}>edit kang</button>                
+                    <div className={favoriteConditional}></div>
+                </div>
+            </>}
         
         </form>
     )

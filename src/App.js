@@ -68,7 +68,7 @@ const App = () => {
             editedTodo[index].text = text
             editedTodo[index].isEdit=false
             setTodos(editedTodo)
-            localStorage.setItem(JSON.stringify('todos',editedTodo))
+            localStorage.setItem("todos",JSON.stringify(editedTodo))
             // return newTodos
         }
     }
@@ -78,7 +78,7 @@ const App = () => {
         console.log(...todos)
         const newTodos = [...todos]
         newTodos[id].isCompleted = !todos[id].isCompleted
-        setTodos(newTodos)
+        setTodos(newTodos)        
     }
 
     const editTodo = (id,newtext) => {
@@ -99,11 +99,10 @@ const App = () => {
  
 
     const removeTodoSplice = (index) =>{
-        const newTodos = [...todos];
-        console.log(newTodos)
-        newTodos.splice(index,1)
-        console.log(newTodos)
-        setTodos(newTodos)
+        const newTodos = [...todos];        
+        newTodos.splice(index,1)        
+        setTodos(newTodos)                
+        localStorage.setItem("todos",JSON.stringify(newTodos))
     }
 
     const handleChangeOption = (e) =>{

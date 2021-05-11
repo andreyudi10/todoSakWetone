@@ -1,6 +1,7 @@
 import React,{ useState } from 'react'
+import styles from './Todo.module.css'
 
-const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo}) => {
+const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,editTodo,addTodo,isFavorite,handleChangeFavorite}) => {
     const testTombol = ()  =>{
         console.log('test tombol nyala')
     }
@@ -19,6 +20,10 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
         }
     }
 
+    const favoriteConditional = (
+        isFavorite?`${styles.circle} ${styles.active}`:`${styles.circle}`
+    )
+
     
 
     // another testTombol menggunakan cara lain
@@ -35,13 +40,14 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
             <div>
                 <button onClick={()=>completeTodo(index)}>completed</button>
                 {/* jika butuh fungsi selain e gunakan arrow */}
-                <button onClick={testTombol}>test tombol</button>
+                <button onClick={()=>handleChangeFavorite(index)}>toggle Fav</button>
                 {/* ini jalan */}
                 <button onClick={()=>testTombol}>test tombol</button>
                 {/* ini kaga jalan */}
                 <button onClick={()=>removeTodo(identity)}>remove</button>
                 <button onClick={()=>removeTodoSplice(index)}>remove pakek splice</button>
-                <button onClick={()=>editTodo(index)}>edit kang</button>
+                <button onClick={()=>editTodo(index)}>edit kang</button>                
+                <div className={favoriteConditional}></div>
             </div>
         </>}
         
@@ -50,6 +56,7 @@ const Todo = ({todo,index,completeTodo,removeTodo,identity,removeTodoSplice,edit
 }
 
 export default Todo
+
 
 // kesimpulan, klo cuma jalanin fungsi semacam biar fungsi lain jalan atau setState bisa
 // pake tulis langsung {testTombol}

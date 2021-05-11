@@ -11,6 +11,7 @@ const App = () => {
             isCompleted:false,
             isRemoved:false,
             isEdit:false,
+            isFavorite:false,
         },
         {   
             identity:Math.floor(Math.random() * 100),
@@ -18,6 +19,7 @@ const App = () => {
             isCompleted:false,
             isRemoved:false,
             isEdit:false,
+            isFavorite:false,
         },
         {   
             identity:Math.floor(Math.random() * 100),
@@ -25,6 +27,7 @@ const App = () => {
             isCompleted:false,
             isRemoved:false,
             isEdit:false,
+            isFavorite:false,
         },                
         // experinment apakah masih jalan klo masih ada koma        
     ])
@@ -64,6 +67,7 @@ const App = () => {
                             isCompleted:false,
                             isRemoved:false,
                             isEdit:false,
+                            isFavorite:false,
                         }
                     ]
 
@@ -86,7 +90,7 @@ const App = () => {
         setTodos(newTodos)        
     }
 
-    const editTodo = (id,newtext) => {
+    const editTodo = (id) => {
         const newTodos = [...todos]
         newTodos[id].isEdit = !todos[id].isEdit
         setTodos(newTodos)
@@ -114,6 +118,14 @@ const App = () => {
         console.log(e.target.value)
         setOption(e.target.value)
     }
+
+    const handleChangeFavorite = (id) =>{
+        const newTodos = [...todos]
+        console.log(newTodos[id].isFavorite)
+        newTodos[id].isFavorite = !todos[id].isFavorite
+        console.log(newTodos[id].isFavorite)
+        setTodos(newTodos)
+    }
     
 
     const optionBody = (
@@ -140,6 +152,8 @@ const App = () => {
                         removeTodoSplice={removeTodoSplice}
                         editTodo={editTodo}                
                         addTodo={addTodo}        
+                        isFavorite={todo.isFavorite}
+                        handleChangeFavorite={handleChangeFavorite}
                         // yang di passing ambil todo pake spread array
                     />
                 ))}
